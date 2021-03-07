@@ -17,13 +17,13 @@ public class KeyInput extends KeyAdapter {
     
     private boolean up = false;
     private boolean down = false;
-
     private Spaceship spaceship;
     
     KeyInput(Spaceship spship){
         spaceship = spship;
     }
-    
+   
+     
     @Override
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
@@ -33,10 +33,12 @@ public class KeyInput extends KeyAdapter {
                 up = true;
                 spaceship.switchDirection(-1);
                 break;
+
             case KeyEvent.VK_S:
                 down = true;
                 spaceship.switchDirection(1);
                 break;    
+
         }
     }
     
@@ -47,13 +49,13 @@ public class KeyInput extends KeyAdapter {
             case KeyEvent.VK_W:
                 up = false;
                 break;
+                
             case KeyEvent.VK_S:
                 down = false;
                 break;    
         }
         if(!up && !down){
             spaceship.switchDirection(0);
-        }
-        
+        }  
     }
 }

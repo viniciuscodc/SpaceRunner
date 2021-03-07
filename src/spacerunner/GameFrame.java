@@ -22,15 +22,19 @@ import javax.imageio.ImageIO;
 
 public class GameFrame extends JPanel implements Runnable {
     
-    Spaceship spaceship;
-    Meteor meteor;
-    Thread gameThread;
-    BufferedImage backgroundImage;
-    boolean running = false;   
     final int WINDOW_HEIGHT = 700;
     public final int WINDOW_WIDTH = 1000;
-    ArrayList<Meteor> meteors;
-    int[] positionsYArray = new int[22];
+    
+    private Spaceship spaceship;
+    private Meteor meteor;
+    private Thread gameThread;
+    private BufferedImage backgroundImage;
+    private KeyInput keyinput;
+    
+    private boolean running = false;   
+    private ArrayList<Meteor> meteors;
+    private int[] positionsYArray = new int[22];
+    private int time = 25;
     
     GameFrame(){
         this.setPreferredSize(new Dimension (WINDOW_WIDTH,WINDOW_HEIGHT));
@@ -50,7 +54,7 @@ public class GameFrame extends JPanel implements Runnable {
         this.addKeyListener(new KeyInput (spaceship));
         startGame(); 
         imageRead();          
-    }  
+    }   
     
     public void imageRead(){
          try {   
@@ -129,9 +133,11 @@ public class GameFrame extends JPanel implements Runnable {
             meteors.get(j).y+meteor.METEOR_SIZE > spaceship.y &&      
             meteors.get(j).y < spaceship.y+spaceship.SPACESHIP_HEIGHT-5){
                 spaceship.y = WINDOW_HEIGHT-spaceship.SPACESHIP_HEIGHT;  
+                time =0;
             }
         }
-      
+        spaceship.setTime(time);
+        time++;
     }
     public void windowCollision(){
         
