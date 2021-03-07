@@ -48,7 +48,7 @@ public class Meteor extends Rectangle {
         g.setColor(Color.white);
         g.drawImage(meteorImage, x, y, x+METEOR_SIZE, y+METEOR_SIZE, 0,0,
         meteorImage.getWidth(),meteorImage.getHeight(), null); 
-        g.drawRect(x, y,METEOR_SIZE, METEOR_SIZE);
+        //hitbox draw g.drawRect(x, y,METEOR_SIZE, METEOR_SIZE);
        
     }
     
