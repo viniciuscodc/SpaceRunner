@@ -18,13 +18,12 @@ import javax.imageio.ImageIO;
  * @author Vinicius
  */
 public class Meteor extends Rectangle {
-    
-    int velocityX = 1;
-    
-    BufferedImage meteorImage;
-    GameFrame gameframe;
+     
     public final int METEOR_SIZE = 20;
-    int id;
+    
+    private int velocityX = 1;
+    
+    private BufferedImage meteorImage;
     
     Meteor(int x , int y){
         this.x = x;

@@ -17,7 +17,8 @@ public class KeyInput extends KeyAdapter {
     
     private boolean up = false;
     private boolean down = false;
-    private Spaceship spaceship;
+    
+    private final Spaceship spaceship;
     
     KeyInput(Spaceship spship){
         spaceship = spship;
@@ -26,6 +27,7 @@ public class KeyInput extends KeyAdapter {
      
     @Override
     public void keyPressed(KeyEvent e){
+        
         int key = e.getKeyCode();
         switch(key){
         
@@ -43,6 +45,7 @@ public class KeyInput extends KeyAdapter {
     }
     
     public void keyReleased(KeyEvent e){
+       
         int key = e.getKeyCode();
         switch(key){
         

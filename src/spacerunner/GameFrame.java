@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 
 /**
  *
@@ -25,36 +26,38 @@ public class GameFrame extends JPanel implements Runnable {
     final int WINDOW_HEIGHT = 700;
     public final int WINDOW_WIDTH = 1000;
     
+    private boolean running = false;   
+    private ArrayList<Meteor> meteors;
+    private int[] positionsYArray = new int[22];
+    private int time = 25; //time delay for respawn
+    private int scoreCount = 0;
+     
     private Spaceship spaceship;
     private Meteor meteor;
     private Thread gameThread;
     private BufferedImage backgroundImage;
     private KeyInput keyinput;
-    
-    private boolean running = false;   
-    private ArrayList<Meteor> meteors;
-    private int[] positionsYArray = new int[22];
-    private int time = 25;
-    
-    GameFrame(){
+    private Score score;
+     
+    GameFrame() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
+        
         this.setPreferredSize(new Dimension (WINDOW_WIDTH,WINDOW_HEIGHT));
         this.setFocusable(true);
-   
-        meteors = new ArrayList<Meteor>(); 
-        meteor = new Meteor();
-        
-        //possible y rows for meteor spawn
-        for (int i =0; i <22;i++){
-            positionsYArray[i] = 0+30*i;
-        }
-        
         meteorAdd();  
-        spaceship = new Spaceship();
         spaceshipAdd();
         this.addKeyListener(new KeyInput (spaceship));
         startGame(); 
-        imageRead();          
+        imageRead();    
+        songPlay();
     }   
+
+    public void songPlay() throws UnsupportedAudioFileException, IOException, LineUnavailableException{  
+        File file = new File("audio/song.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.loop(20);
+    }
     
     public void imageRead(){
          try {   
@@ -70,7 +73,14 @@ public class GameFrame extends JPanel implements Runnable {
         return (int) Math.ceil(Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2)));
     }
     
+    public void scoreCount(){
+        int scoreX = (int) (WINDOW_WIDTH*0.10);
+        int scoreY = (int) (WINDOW_HEIGHT*0.99);
+        score = new Score(scoreX,scoreY, "Score:"+Integer.toString(scoreCount));
+    }
+    
     public void paintComponent(Graphics g){
+        
         super.paintComponent(g); //clear screen
         
         //draw background image
@@ -81,7 +91,7 @@ public class GameFrame extends JPanel implements Runnable {
         for (int j =0; j <80;j++){
         meteors.get(j).draw(g);
         }
-        
+        score.draw(g);
         spaceship.draw(g);   
     }
     
@@ -111,17 +121,19 @@ public class GameFrame extends JPanel implements Runnable {
                 repaint();
                 deltaTime = deltaTime - OPTIMAL_TIME;
             }
-        
         }
     }
     
     public void update(double dt){
         spaceship.move(dt);
+      
+        //update for each meteor
         for (int j =0; j < 80;j++){
         meteors.get(j).move(dt);
         }
         windowCollision();
         meteorCollision();
+        scoreCount();
     }
     
     public void meteorCollision(){
@@ -136,6 +148,7 @@ public class GameFrame extends JPanel implements Runnable {
                 time =0;
             }
         }
+        //time delay for respawn
         spaceship.setTime(time);
         time++;
     }
@@ -151,31 +164,40 @@ public class GameFrame extends JPanel implements Runnable {
         //spaceship finish race
         if(spaceship.y<0-spaceship.SPACESHIP_HEIGHT){
             spaceship.y = WINDOW_HEIGHT-spaceship.SPACESHIP_HEIGHT;
-        
+            scoreCount = scoreCount+1;
         }
     } 
 
     public void meteorAdd(){
         
-            //spawn meteor random position
-            for (int j =0; j <80;j++){
-                int posX = (int) (Math.random() * (WINDOW_WIDTH - 0 +1) + 0);
-                int posY = (int) (Math.random() * (positionsYArray[21] - positionsYArray[0] +1) + positionsYArray[0]);    
+        meteors = new ArrayList<Meteor>(); 
+        meteor = new Meteor();
+        
+        //possible y rows for meteor spawn
+        for (int i =0; i <22;i++){
+            positionsYArray[i] = 0+30*i;
+        }
+        
+        //spawn meteor random position
+        for (int j =0; j <80;j++){
+            int posX = (int) (Math.random() * (WINDOW_WIDTH - 0 +1) + 0);
+            int posY = (int) (Math.random() * (positionsYArray[21] - positionsYArray[0] +1) + positionsYArray[0]);    
                 
-                if(j !=0){ // check overlap and calculate again
-                  for (int k =0;k<meteors.size();k++){
-                      if(findDistance(posX,posY,meteors.get(k).x,meteors.get(k).y) <25){
-                            posX = (int) (Math.random() * (WINDOW_WIDTH - 0 +1) + 0);
-                            posY = (int) (Math.random() * (positionsYArray[21] - positionsYArray[0] +1) + positionsYArray[0]); 
-                            k= -1;
+            if(j !=0){ // check overlap and calculate again
+                for (int k =0;k<meteors.size();k++){
+                    if(findDistance(posX,posY,meteors.get(k).x,meteors.get(k).y) <25){
+                        posX = (int) (Math.random() * (WINDOW_WIDTH - 0 +1) + 0);
+                        posY = (int) (Math.random() * (positionsYArray[21] - positionsYArray[0] +1) + positionsYArray[0]); 
+                        k= -1;
                       }
                   } 
                 }
-                meteors.add(new Meteor(posX,posY));
+            meteors.add(new Meteor(posX,posY));
             }
     }
     
-      public void spaceshipAdd(){
+      public void spaceshipAdd(){ 
+        spaceship = new Spaceship();
         spaceship = new Spaceship(WINDOW_WIDTH/2,WINDOW_HEIGHT-spaceship.SPACESHIP_HEIGHT);
     }   
 }
