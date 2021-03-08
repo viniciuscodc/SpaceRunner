@@ -5,7 +5,6 @@
  */
 package spacerunner;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,14 +19,16 @@ import javax.imageio.ImageIO;
  */
 public class Spaceship extends Rectangle {
     
-    int velocityY;
-    int speed = 1;
+ 
     public final int SPACESHIP_HEIGHT = 35;
     public final int SPACESHIP_WIDTH = (int) (35*1.1354);
-    public int timer;
     
-    BufferedImage spaceshipImage;
-    BufferedImage boostImage;
+    private int timer;
+    private int velocityY;
+    private int speed = 1;
+    
+    private BufferedImage spaceshipImage;
+    private BufferedImage boostImage;
     
     Spaceship(int x , int y) {
         this.x = x;
@@ -77,7 +78,7 @@ public class Spaceship extends Rectangle {
         }
     }
        
-    public void switchDirection(int direction){
+    public void switchDirection(int direction){  
        velocityY = speed *direction;
     } 
 }
