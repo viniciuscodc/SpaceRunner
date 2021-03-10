@@ -21,4 +21,4 @@ spaceship.jpg for spaceship
 W and S to move the spaceship
 
 # Game Preview
-![](preview.png)
+![](preview.png= 100x100)
