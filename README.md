@@ -20,6 +20,9 @@ spaceship.jpg for spaceship
 # Controls
 W and S to move the spaceship
 
+# How to run
+You can play the game by compiling the project in a IDE like Netbeans and Eclipse.
+
 # Game Preview
 <img src="preview.png" alt="drawing" width="500"/>
 
