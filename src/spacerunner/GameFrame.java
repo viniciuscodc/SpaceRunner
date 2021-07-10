@@ -39,7 +39,7 @@ public class GameFrame extends JPanel implements Runnable {
     private KeyInput keyinput;
     private Score score;
      
-    GameFrame() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
+    GameFrame(){
         
         this.setPreferredSize(new Dimension (WINDOW_WIDTH,WINDOW_HEIGHT));
         this.setFocusable(true);
@@ -51,12 +51,17 @@ public class GameFrame extends JPanel implements Runnable {
         songPlay();
     }   
 
-    public void songPlay() throws UnsupportedAudioFileException, IOException, LineUnavailableException{  
-        File file = new File("audio/song.wav");
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioStream);
-        clip.loop(20);
+    public void songPlay(){
+        try{
+            File file = new File("audio/song.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.loop(20);
+        }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
     
     public void imageRead(){
