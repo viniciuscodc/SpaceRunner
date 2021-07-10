@@ -1,6 +1,5 @@
 # SpaceRunner
-This is a game made in java inspired in Atari's 1973 SpaceRace classic. There are 7 classes located in the folder src and they can be acessed using a IDE. 
-The IDE used for this project was Apache NetBeans and contains the project archive. The objective is reach the end of the screen without been hit.
+This is a game made in java inspired in Atari's 1973 SpaceRace classic. The objective is reach the end of the screen without been hit.
 
 # Song
 
@@ -29,9 +28,6 @@ java spacerunner.SpaceRunner
 
 # Controls
 W and S to move the spaceship
-
-# How to run
-You can play the game by compiling the project in a IDE like Netbeans and Eclipse.
 
 # Game Preview
 <img src="preview.png" alt="drawing" width="500"/>
