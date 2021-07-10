@@ -17,6 +17,16 @@ space.jpg for background
 
 spaceship.jpg for spaceship
 
+**Running:**
+Install java sdk then go to src folder in terminal and type:
+
+```
+javac spacerunner/SpaceRunner.java
+```
+```
+java spacerunner.SpaceRunner
+```
+
 # Controls
 W and S to move the spaceship
 
