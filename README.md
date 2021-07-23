@@ -17,7 +17,7 @@ space.jpg for background
 spaceship.jpg for spaceship
 
 **Running:**
-Install java sdk then go to src folder in terminal and type:
+Install java sdk then open SpaceRunner.jar or install java jdk and go to src folder in terminal and type:
 
 ```
 javac spacerunner/SpaceRunner.java
