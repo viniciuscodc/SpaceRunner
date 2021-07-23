@@ -1,5 +1,5 @@
 # SpaceRunner
-This is a game made in java inspired in Atari's 1973 SpaceRace classic. The objective is reach the end of the screen without been hit. Tested in Windows
+This is a game made in java inspired in Atari's 1973 SpaceRace classic. The objective is reach the end of the screen without been hit. The game was tested in Windows.
 
 # Song
 
