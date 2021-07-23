@@ -36,7 +36,6 @@ public class GameFrame extends JPanel implements Runnable {
     private Meteor meteor;
     private Thread gameThread;
     private BufferedImage backgroundImage;
-    private KeyInput keyinput;
     private Score score;
      
     GameFrame(){
